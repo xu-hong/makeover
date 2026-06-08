@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Roller Coaster Makeover / Data Visualization Makeover Collection</title>
+    <style>
+      :root {
+        --paper: #f6f6f0;
+        --ink: #171717;
+        --muted: #616a70;
+        --line: #d8d8cf;
+        --panel: #ffffff;
+        --accent: #b94724;
+        --teal: #0b6f68;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: center;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .brand {
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+      }
+
+      nav {
+        display: flex;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      nav a {
+        text-underline-offset: 3px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.85fr) minmax(300px, 1.15fr);
+        gap: clamp(28px, 6vw, 70px);
+        align-items: end;
+        padding: clamp(42px, 8vw, 92px) 0 34px;
+      }
+
+      .kicker {
+        margin: 0 0 12px;
+        color: var(--accent);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 900;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 11ch;
+        font-size: clamp(3rem, 8vw, 7rem);
+        line-height: 0.92;
+      }
+
+      .dek {
+        margin: 0;
+        color: #303030;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: clamp(1.02rem, 1.65vw, 1.24rem);
+        line-height: 1.5;
+      }
+
+      .attempt-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        padding: 14px 0 clamp(38px, 7vw, 78px);
+      }
+
+      .attempt-card {
+        display: grid;
+        align-content: space-between;
+        min-height: 330px;
+        padding: clamp(18px, 3vw, 28px);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.06);
+        text-decoration: none;
+      }
+
+      .attempt-card strong {
+        color: var(--accent);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .attempt-card h2 {
+        margin: 12px 0;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 0.95;
+      }
+
+      .attempt-card p {
+        margin: 0;
+        color: var(--muted);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        line-height: 1.45;
+      }
+
+      .meta {
+        margin-top: 28px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: var(--muted);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.84rem;
+      }
+
+      @media (max-width: 760px) {
+        header {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .hero,
+        .attempt-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site">
+      <header>
+        <a class="brand" href="../../index.html">Makeover Collection</a>
+        <nav aria-label="Site navigation">
+          <a href="../../index.html">Collection</a>
+          <a href="../../about.html">About</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <p class="kicker">Project makeover</p>
+            <h1>Roller Coaster Makeover</h1>
+          </div>
+          <p class="dek">
+            The starting point was a <a href="https://www.tripsavvy.com/tallest-roller-coasters-in-the-world-3226411">decorative ranking</a> of the tallest roller
+            coasters. The remake asks a sharper question: what changed about
+            the tallest-coaster crown, and why should a general reader care?
+          </p>
+        </section>
+
+        <section class="attempt-grid" aria-label="Visualization attempts">
+          <a class="attempt-card" href="attempt-1/index.html">
+            <div>
+              <strong>Attempt 1</strong>
+              <h2>One big number, one comparison.</h2>
+              <p>
+                A minimum effective comparison between Falcons Flight and Top
+                Thrill 2, with a simple height benchmark.
+              </p>
+            </div>
+            <div class="meta">
+              <span>Two-bar comparison</span>
+              <span>Static page</span>
+            </div>
+          </a>
+
+          <a class="attempt-card" href="attempt-2/index.html">
+            <div>
+              <strong>Attempt 2</strong>
+              <h2>The record stalled, then jumped.</h2>
+              <p>
+                A step-line timeline that shows record shocks, Japanese and
+                Kingda Ka plateaus, the 2024 fallback, and the Saudi endpoint.
+              </p>
+            </div>
+            <div class="meta">
+              <span>Annotated time series</span>
+              <span>Hover details</span>
+            </div>
+          </a>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Visualization Makeover Collection</title>
+    <style>
+      :root {
+        --paper: #f6f6f0;
+        --ink: #171717;
+        --muted: #616a70;
+        --line: #d8d8cf;
+        --panel: #ffffff;
+        --accent: #b94724;
+        --teal: #0b6f68;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: center;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .brand {
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+      }
+
+      nav {
+        display: flex;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      nav a {
+        text-underline-offset: 3px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.9fr) minmax(300px, 1.1fr);
+        gap: clamp(28px, 6vw, 76px);
+        align-items: end;
+        padding: clamp(42px, 8vw, 96px) 0 clamp(32px, 6vw, 70px);
+      }
+
+      .kicker {
+        margin: 0 0 12px;
+        color: var(--accent);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 900;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 12ch;
+        font-size: clamp(3.1rem, 8vw, 7.6rem);
+        line-height: 0.92;
+        letter-spacing: 0;
+      }
+
+      .dek {
+        margin: 0;
+        color: #303030;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+        line-height: 1.48;
+      }
+
+      .collection-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 16px;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(1.5rem, 3vw, 2.3rem);
+      }
+
+      .count {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .project-card {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.85fr) minmax(300px, 1.15fr);
+        gap: clamp(20px, 4vw, 46px);
+        padding: clamp(18px, 3vw, 30px);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.06);
+        text-decoration: none;
+      }
+
+      .project-card h3 {
+        margin: 0 0 12px;
+        font-size: clamp(1.8rem, 4vw, 3.6rem);
+        line-height: 0.95;
+      }
+
+      .project-card p {
+        margin: 0;
+        color: var(--muted);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        line-height: 1.45;
+      }
+
+      .attempts {
+        display: grid;
+        gap: 10px;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .attempt {
+        display: grid;
+        grid-template-columns: 92px 1fr;
+        gap: 14px;
+        padding: 14px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .attempt strong {
+        color: var(--accent);
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .attempt span {
+        display: block;
+        color: #303638;
+        font-weight: 800;
+        line-height: 1.25;
+      }
+
+      .attempt small {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 0.8rem;
+        line-height: 1.35;
+      }
+
+      footer {
+        padding: 38px 0;
+        color: var(--muted);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.84rem;
+      }
+
+      @media (max-width: 760px) {
+        header,
+        .collection-head {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .hero,
+        .project-card {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          max-width: 10ch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site">
+      <header>
+        <a class="brand" href="index.html">Makeover Collection</a>
+        <nav aria-label="Site navigation">
+          <a href="index.html">Collection</a>
+          <a href="about.html">About</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <p class="kicker">Data visualization makeovers</p>
+            <h1>Sharper charts from ordinary graphics.</h1>
+          </div>
+          <p class="dek">
+            A small editorial collection of chart remakes. Each project keeps
+            the original question visible, tests whether the evidence can carry
+            the claim, then iterates toward the simplest honest visual form.
+          </p>
+        </section>
+
+        <section aria-labelledby="collection-title">
+          <div class="collection-head">
+            <h2 id="collection-title">Projects</h2>
+            <span class="count">1 project / 2 visualization attempts</span>
+          </div>
+
+          <a class="project-card" href="projects/roller-coaster-makeover/index.html">
+            <div>
+              <h3>Roller Coaster Makeover</h3>
+              <p>
+                From a decorative tallest-coasters ranking toward a clearer
+                story about record height, U.S. park rivalry, and Saudi
+                mega-project spectacle.
+              </p>
+            </div>
+            <div class="attempts" aria-label="Roller Coaster Makeover attempts">
+              <div class="attempt">
+                <strong>Attempt 1</strong>
+                <span>Falcons Flight vs. Top Thrill 2</span>
+                <small>One number, one benchmark, one direct comparison.</small>
+              </div>
+              <div class="attempt">
+                <strong>Attempt 2</strong>
+                <span>Record height over time</span>
+                <small>A step-line history of shocks, plateaus, and the current jump.</small>
+              </div>
+            </div>
+          </a>
+        </section>
+      </main>
+
+      <footer>
+        Static HTML/CSS/JavaScript. Built to be readable from file URLs or static hosting.
+      </footer>
+    </div>
+  </body>
+</html>

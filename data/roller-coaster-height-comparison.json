@@ -1,0 +1,57 @@
+{
+  "as_of_date": "2026-06-08",
+  "measurement_note": "Height uses RCDB listed track height in feet. Falcons Flight is also listed with 640 ft elevation change, which should not be labeled as track height.",
+  "benchmark": {
+    "label": "about a 50-story building",
+    "height_ft": 500,
+    "note": "Approximate reader benchmark; actual story height varies by building."
+  },
+  "records": [
+    {
+      "ride": "Falcons Flight",
+      "park": "Six Flags Qiddiya City",
+      "location": "Al Muzahimiyah, Ar Riyadh, Saudi Arabia",
+      "country": "Saudi Arabia",
+      "height_ft": 534.8,
+      "elevation_change_ft": 640,
+      "status": "Operating",
+      "rank_context": "Tallest currently operating roller coaster listed by RCDB",
+      "era_label": "Saudi giga-project spectacle",
+      "source_url": "https://rcdb.com/21315.htm"
+    },
+    {
+      "ride": "Top Thrill 2",
+      "park": "Cedar Point",
+      "location": "Sandusky, Ohio, United States",
+      "country": "United States",
+      "height_ft": 420,
+      "elevation_change_ft": null,
+      "status": "Operating",
+      "rank_context": "Next tallest currently operating roller coaster listed by RCDB",
+      "era_label": "U.S. theme-park rivalry",
+      "source_url": "https://rcdb.com/1896.htm"
+    }
+  ],
+  "sources": [
+    {
+      "label": "RCDB height ranking",
+      "url": "https://rcdb.com/rhr.htm?m=1"
+    },
+    {
+      "label": "Falcons Flight, RCDB",
+      "url": "https://rcdb.com/21315.htm"
+    },
+    {
+      "label": "Top Thrill 2, RCDB",
+      "url": "https://rcdb.com/1896.htm"
+    },
+    {
+      "label": "Six Flags Qiddiya Falcons Flight page",
+      "url": "https://sixflagsqiddiyacity.com/en/explore/rides/falcons-flight"
+    },
+    {
+      "label": "Guinness Top Thrill 2 online record page, noted as possible lagging context",
+      "url": "https://www.guinnessworldrecords.com/world-records/69217-tallest-roller-coaster-made-from-steel"
+    }
+  ]
+}

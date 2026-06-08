@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Tallest Roller Coaster Record Stalled, Then Jumped</title>
+    <style>
+      :root {
+        --paper: #f6f6f0;
+        --ink: #171717;
+        --muted: #666f76;
+        --quiet: #8b9297;
+        --hairline: #d8d8cf;
+        --panel: #ffffff;
+        --record: #0b6f68;
+        --accent: #b94724;
+        --soft-accent: #f5dfd6;
+        --soft-cool: #ddece8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        overflow-x: hidden;
+      }
+
+      main {
+        min-height: 100vh;
+        padding: clamp(18px, 4vw, 54px);
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 12px;
+        margin: 0 auto 18px;
+        width: min(1180px, 100%);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.78rem;
+      }
+
+      .page-nav a {
+        color: var(--muted);
+        text-underline-offset: 3px;
+      }
+
+      .story {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        display: grid;
+        gap: clamp(20px, 3vw, 34px);
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(250px, 0.95fr) minmax(280px, 1.05fr);
+        gap: clamp(20px, 5vw, 72px);
+        align-items: end;
+      }
+
+      .kicker {
+        margin: 0 0 10px;
+        color: var(--accent);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 13ch;
+        font-size: clamp(2.5rem, 7vw, 6.6rem);
+        line-height: 0.94;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .dek {
+        margin: 0;
+        max-width: 42rem;
+        color: #303030;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: clamp(1.02rem, 1.65vw, 1.28rem);
+        line-height: 1.48;
+      }
+
+      .metric-row {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .metric {
+        border-top: 1px solid var(--hairline);
+        padding-top: 10px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: clamp(1.9rem, 4vw, 3.4rem);
+        line-height: 0.98;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.28;
+      }
+
+      .chart-card {
+        margin: 0;
+        background: var(--panel);
+        border: 1px solid var(--hairline);
+        border-radius: 8px;
+        padding: clamp(14px, 2.8vw, 28px);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.07);
+        min-width: 0;
+      }
+
+      .chart-head {
+        margin-bottom: 14px;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .chart-title {
+        margin: 0;
+        max-width: 58rem;
+        font-size: clamp(1rem, 1.6vw, 1.18rem);
+        line-height: 1.35;
+        font-weight: 800;
+      }
+
+      .plot-wrap {
+        position: relative;
+        min-height: 500px;
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      svg {
+        display: block;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .context-band {
+        fill: var(--soft-cool);
+        opacity: 0.5;
+      }
+
+      .context-band.hot {
+        fill: var(--soft-accent);
+        opacity: 0.75;
+      }
+
+      .context-band.kingda {
+        fill: var(--soft-cool);
+        opacity: 0.72;
+      }
+
+      .grid-line {
+        stroke: var(--hairline);
+        stroke-width: 1;
+      }
+
+      .axis-line {
+        stroke: #bfc3c4;
+        stroke-width: 1;
+      }
+
+      .axis-label,
+      .axis-unit,
+      .tick-label,
+      .benchmark-label {
+        fill: var(--muted);
+        font-size: 12px;
+      }
+
+      .band-label {
+        fill: #68757a;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .benchmark-label {
+        fill: #535b60;
+      }
+
+      .record-line {
+        fill: none;
+        stroke: var(--record);
+        stroke-linejoin: round;
+        stroke-width: 4;
+      }
+
+      .callout-dot {
+        fill: var(--panel);
+        stroke: var(--record);
+        stroke-width: 3;
+      }
+
+      .milestone-dot {
+        fill: var(--panel);
+        stroke: var(--accent);
+        stroke-width: 2;
+      }
+
+      .milestone-hotspot {
+        fill: transparent;
+        cursor: help;
+        pointer-events: all;
+      }
+
+      .milestone-hotspot:focus-visible + .milestone-dot {
+        stroke-width: 4;
+      }
+
+      .direct-label {
+        fill: #313638;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .direct-label-muted {
+        fill: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .end-label {
+        fill: var(--accent);
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .end-sub-label {
+        fill: #313638;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .record-label {
+        fill: #253033;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .tooltip {
+        position: absolute;
+        z-index: 2;
+        max-width: min(280px, calc(100vw - 48px));
+        padding: 10px 11px;
+        border: 1px solid var(--hairline);
+        border-radius: 6px;
+        background: var(--panel);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        color: #303638;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.78rem;
+        line-height: 1.35;
+        pointer-events: none;
+      }
+
+      .tooltip[hidden] {
+        display: none;
+      }
+
+      .tooltip strong {
+        display: block;
+        color: var(--accent);
+        font-size: 0.82rem;
+        margin-bottom: 4px;
+      }
+
+      .tooltip-date {
+        display: block;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+        margin-bottom: 5px;
+      }
+
+      .source-note {
+        margin: 15px 0 0;
+        color: var(--muted);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.76rem;
+        line-height: 1.45;
+      }
+
+      .source-note a {
+        color: inherit;
+        text-underline-offset: 2px;
+      }
+
+      .load-error {
+        padding: 18px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+
+      @media (max-width: 820px) {
+        main {
+          padding: 18px;
+        }
+
+        .intro {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+
+        h1 {
+          max-width: 11ch;
+        }
+
+        .metric-row {
+          grid-template-columns: 1fr;
+        }
+
+        .chart-card {
+          padding: 14px;
+        }
+
+        .chart-head {
+          display: block;
+        }
+
+        .plot-wrap {
+          min-height: 560px;
+        }
+
+        svg {
+          height: 560px;
+        }
+
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav class="page-nav" aria-label="Project navigation">
+        <a href="../index.html">Project</a>
+        <a href="../../../index.html">Collection</a>
+        <a href="../attempt-1/index.html">Attempt 1</a>
+      </nav>
+      <section class="story" aria-labelledby="page-title">
+        <div class="intro">
+          <div>
+            <p class="kicker">Record timeline</p>
+            <h1 id="page-title">The tallest record stalled, then jumped.</h1>
+          </div>
+          <div>
+            <p class="dek">
+              Since the late 1970s, the tallest-coaster crown has not climbed like a smooth technology curve.
+              It moved in bursts, froze at Kingda Ka for 19 years, briefly fell back after that ride closed,
+              then jumped to a Saudi mega-project.
+            </p>
+            <div class="metric-row" aria-label="Key record facts">
+              <div class="metric">
+                <strong>19 yrs</strong>
+                <span>Kingda Ka held the operating height crown from 2005 to 2024.</span>
+              </div>
+              <div class="metric">
+                <strong>-36 ft</strong>
+                <span>The record fell back to Top Thrill 2 after Kingda Ka closed.</span>
+              </div>
+              <div class="metric">
+                <strong>535 ft</strong>
+                <span>Falcons Flight puts the current crown beyond the U.S. strata era.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <figure class="chart-card">
+          <div class="chart-head">
+            <figcaption class="chart-title" id="chart-title">
+              The world-height record rose in shocks, not a steady climb.
+            </figcaption>
+          </div>
+          <div id="chart" class="plot-wrap" role="img" aria-labelledby="chart-title"></div>
+          <p class="source-note" id="source-note"></p>
+        </figure>
+      </section>
+    </main>
+
+    <script src="../../../data/roller-coaster-record-timeline.js"></script>
+    <script>
+      const formatFeet = (value) => `${Math.round(value).toLocaleString("en-US")} ft`;
+      const parseDate = (dateString) => {
+        const [year, month, day] = dateString.split("-").map(Number);
+        return new Date(Date.UTC(year, month - 1, day));
+      };
+
+      function decimalYear(dateString) {
+        const date = parseDate(dateString);
+        const year = date.getUTCFullYear();
+        const start = Date.UTC(year, 0, 1);
+        const end = Date.UTC(year + 1, 0, 1);
+        return year + (date.getTime() - start) / (end - start);
+      }
+
+      function sourceLinks(sources) {
+        return sources
+          .map((source) => `<a href="${source.url}">${source.label}</a>`)
+          .join("; ");
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function renderChart(data) {
+        const container = document.getElementById("chart");
+        const width = Math.max(320, Math.floor(container.getBoundingClientRect().width));
+        const isMobile = width < 620;
+        const height = isMobile ? 560 : 500;
+        const margin = {
+          top: isMobile ? 34 : 28,
+          right: isMobile ? 18 : 190,
+          bottom: isMobile ? 58 : 46,
+          left: isMobile ? 44 : 58
+        };
+        const plotWidth = width - margin.left - margin.right;
+        const plotHeight = height - margin.top - margin.bottom;
+        const xMin = 1975;
+        const xMax = 2026.45;
+        const yMin = 75;
+        const yMax = 560;
+        const ticksX = isMobile ? [1975, 1990, 2005, 2026] : [1975, 1985, 1995, 2005, 2015, 2026];
+        const ticksY = [100, 200, 300, 400, 500];
+
+        const x = (value) => margin.left + ((value - xMin) / (xMax - xMin)) * plotWidth;
+        const y = (value) => margin.top + ((yMax - value) / (yMax - yMin)) * plotHeight;
+        const records = data.records.map((record) => ({
+          ...record,
+          start_year: decimalYear(record.start_date),
+          end_year: decimalYear(record.end_date)
+        }));
+
+        let path = `M ${x(records[0].start_year)} ${y(records[0].height_ft)}`;
+        records.forEach((record, index) => {
+          path += ` H ${x(record.end_year)}`;
+          const next = records[index + 1];
+          if (next) {
+            path += ` V ${y(next.height_ft)}`;
+          }
+        });
+
+        const contextBands = data.context_periods
+          .filter((period) => ["Japan plateau", "Kingda Ka plateau"].includes(period.label))
+          .map((period) => {
+            const start = x(decimalYear(period.start_date));
+            const end = x(decimalYear(period.end_date));
+            const className = period.label === "Kingda Ka plateau" ? "kingda" : "";
+            if (end < margin.left || start > width - margin.right) {
+              return "";
+            }
+            return `
+              <rect class="context-band ${className}" x="${start}" y="${margin.top}" width="${Math.max(2, end - start)}" height="${plotHeight}"></rect>
+              ${
+                end - start > 72 &&
+                !isMobile &&
+                ["Japan plateau", "Kingda Ka plateau"].includes(period.label)
+                  ? `<text class="band-label" x="${start + 8}" y="${margin.top + 17}">${period.label}</text>`
+                  : ""
+              }
+            `;
+          })
+          .join("");
+
+        const grid = ticksY
+          .map(
+            (tick) => `
+              <line class="grid-line" x1="${margin.left}" x2="${width - margin.right}" y1="${y(tick)}" y2="${y(tick)}"></line>
+              <text class="tick-label" x="${margin.left - 9}" y="${y(tick) + 4}" text-anchor="end">${tick}</text>
+            `
+          )
+          .join("");
+
+        const yearTicks = ticksX
+          .map(
+            (tick) => `
+              <line class="axis-line" x1="${x(tick)}" x2="${x(tick)}" y1="${height - margin.bottom}" y2="${height - margin.bottom + 6}"></line>
+              <text class="tick-label" x="${x(tick)}" y="${height - margin.bottom + 23}" text-anchor="middle">${tick}</text>
+            `
+          )
+          .join("");
+
+        const benchmarks = data.benchmarks
+          .map(
+            (benchmark) => `
+              <line class="grid-line" x1="${margin.left}" x2="${width - margin.right}" y1="${y(benchmark.height_ft)}" y2="${y(benchmark.height_ft)}"></line>
+              ${
+                isMobile || ![400, 500].includes(benchmark.height_ft)
+                  ? ""
+                  : `<text class="benchmark-label" x="${margin.left + 8}" y="${y(benchmark.height_ft) - 7}">${benchmark.label}</text>`
+              }
+            `
+          )
+          .join("");
+
+        const directLabels = isMobile
+          ? [
+              {
+                date: "1983-06-24",
+                height_ft: 229.7,
+                label_year: 1983.1,
+                label_height: 250,
+                title: "Moonsault Scramble",
+                detail: "Japan, 230 ft",
+                anchor: "end"
+              },
+              {
+                date: "1997-01-23",
+                height_ft: 377.3,
+                label_year: 1996.3,
+                label_height: 438,
+                title: "Tower of Terror",
+                detail: "Australia, 377 ft",
+                anchor: "end"
+              },
+              {
+                date: "2024-11-10",
+                height_ft: 420,
+                label_year: 2023.0,
+                label_height: 404,
+                title: "Top Thrill 2",
+                detail: "fallback to 420 ft",
+                anchor: "end"
+              }
+            ]
+          : [
+              {
+                date: "1983-06-24",
+                height_ft: 229.7,
+                label_year: 1983.1,
+                label_height: 250,
+                title: "Moonsault Scramble",
+                detail: "Japan, 230 ft",
+                anchor: "end"
+              },
+              {
+                date: "1997-01-23",
+                height_ft: 377.3,
+                label_year: 1996.3,
+                label_height: 438,
+                title: "Tower of Terror",
+                detail: "Australia, 377 ft",
+                anchor: "end"
+              },
+              {
+                date: "2005-05-21",
+                height_ft: 456,
+                label_year: 2007.1,
+                label_height: 480,
+                title: "Kingda Ka",
+                detail: "456 ft, 19-year plateau",
+                anchor: "start"
+              },
+              {
+                date: "2024-11-10",
+                height_ft: 420,
+                label_year: 2023.0,
+                label_height: 404,
+                title: "Top Thrill 2",
+                detail: "fallback to 420 ft",
+                anchor: "end"
+              }
+            ];
+
+        const labels = directLabels
+          .map((label) => {
+            const labelX = x(label.label_year);
+            const labelY = y(label.label_height);
+            const anchor = label.anchor || "start";
+            return `
+              <text class="direct-label" x="${labelX}" y="${labelY}" text-anchor="${anchor}">${label.title}</text>
+              <text class="direct-label-muted" x="${labelX}" y="${labelY + 15}" text-anchor="${anchor}">${label.detail}</text>
+            `;
+          })
+          .join("");
+
+        const finalRecord = records[records.length - 1];
+        const finalX = x(finalRecord.start_year);
+        const finalY = y(finalRecord.height_ft);
+        const endLabelX = isMobile ? width - margin.right - 4 : finalX + 18;
+        const endLabelY = isMobile ? finalY + 22 : finalY - 8;
+        const endLabelAnchor = isMobile ? "end" : "start";
+        const milestones = [
+          {
+            ride: "Loop Coaster",
+            date: "1979-08-04",
+            date_label: "August 1979",
+            height_ft: 193.6,
+            title: "Loop Coaster",
+            body: "Japan nearly reached 200 ft in 1979, before the longer Moonsault plateau."
+          },
+          {
+            ride: "Moonsault Scramble",
+            date: "1983-06-24",
+            date_label: "June 1983",
+            height_ft: 229.7,
+            title: "Moonsault Scramble",
+            body: "Fuji-Q Highland, Japan. Held the height crown from 1983 to 1996."
+          },
+          {
+            ride: "Fujiyama",
+            date: "1996-07-01",
+            date_label: "July 1996",
+            height_ft: 259.2,
+            title: "Fujiyama",
+            body: "Fuji-Q Highland, Japan. A brief 1996 step between the Japanese plateau and the 1997 launch-coaster leap."
+          },
+          {
+            ride: "Tower of Terror",
+            date: "1997-01-23",
+            date_label: "January 1997",
+            height_ft: 377.3,
+            title: "Tower of Terror",
+            body: "Dreamworld, Australia. Took the crown in January 1997 and held it for about seven weeks."
+          },
+          {
+            ride: "Superman: Escape from Krypton",
+            date: "1997-03-15",
+            date_label: "March 1997",
+            height_ft: 415,
+            title: "Superman: Escape from Krypton",
+            body: "Six Flags Magic Mountain, United States. Passed Tower of Terror in March 1997 and pushed the record past 400 ft."
+          },
+          {
+            ride: "Kingda Ka",
+            date: "2005-05-21",
+            date_label: "May 2005",
+            height_ft: 456,
+            title: "Kingda Ka",
+            body: "Six Flags Great Adventure, United States. Held the operating height crown for more than 19 years."
+          },
+          {
+            ride: "Top Thrill 2",
+            date: "2024-11-10",
+            date_label: "November 2024",
+            height_ft: 420,
+            title: "Top Thrill 2",
+            body: "Cedar Point, United States. After Kingda Ka closed, the operating-height crown fell back to 420 ft."
+          },
+          {
+            ride: "Falcons Flight",
+            date: "2025-12-31",
+            date_label: "2025",
+            height_ft: 534.8,
+            title: "Falcons Flight",
+            body: "Six Flags Qiddiya City, Saudi Arabia. Took the operating height crown at 534.8 ft."
+          }
+        ];
+
+        const milestoneDots = milestones
+          .map((milestone, index) => {
+            const cx = milestone.ride === "Falcons Flight" ? finalX : x(decimalYear(milestone.date));
+            const cy = milestone.ride === "Falcons Flight" ? finalY : y(milestone.height_ft);
+            const title = escapeHtml(milestone.title);
+            const dateLabel = escapeHtml(milestone.date_label);
+            const body = escapeHtml(milestone.body);
+            return `
+              <g class="milestone" data-title="${title}" data-date="${dateLabel}" data-body="${body}" data-x="${cx}" data-y="${cy}">
+                <circle class="milestone-hotspot" cx="${cx}" cy="${cy}" r="13" tabindex="0" aria-label="${title}, ${dateLabel}: ${body}"></circle>
+                <circle class="milestone-dot" cx="${cx}" cy="${cy}" r="${index < 5 ? 4 : 5}"></circle>
+              </g>
+            `;
+          })
+          .join("");
+
+        container.innerHTML = `
+          <svg viewBox="0 0 ${width} ${height}" aria-label="${data.scope}">
+            ${contextBands}
+            ${grid}
+            ${benchmarks}
+            <line class="axis-line" x1="${margin.left}" x2="${width - margin.right}" y1="${height - margin.bottom}" y2="${height - margin.bottom}"></line>
+            <line class="axis-line" x1="${margin.left}" x2="${margin.left}" y1="${margin.top}" y2="${height - margin.bottom}"></line>
+            ${yearTicks}
+            <path class="record-line" d="${path}"></path>
+            ${milestoneDots}
+            ${labels}
+            <text class="end-label" x="${endLabelX}" y="${endLabelY}" text-anchor="${endLabelAnchor}">Falcons Flight, ${formatFeet(finalRecord.height_ft)}</text>
+            <text class="end-sub-label" x="${endLabelX}" y="${endLabelY + 17}" text-anchor="${endLabelAnchor}">Six Flags Qiddiya City</text>
+            <text class="end-sub-label" x="${endLabelX}" y="${endLabelY + 33}" text-anchor="${endLabelAnchor}">Saudi mega-project jump</text>
+            <text class="axis-unit" x="${margin.left}" y="${margin.top - 10}">Height above ground, feet</text>
+            <text class="axis-label" x="${margin.left}" y="${height - 11}">Record holder by date</text>
+          </svg>
+          <div class="tooltip" id="chart-tooltip" hidden></div>
+        `;
+
+        attachTooltipHandlers(container);
+      }
+
+      function attachTooltipHandlers(container) {
+        const tooltip = container.querySelector("#chart-tooltip");
+        const showTooltip = (group) => {
+          tooltip.innerHTML = `<strong>${group.dataset.title}</strong><span class="tooltip-date">${group.dataset.date}</span>${group.dataset.body}`;
+          const xPosition = Number(group.dataset.x);
+          const yPosition = Number(group.dataset.y);
+          tooltip.hidden = false;
+          const tooltipWidth = tooltip.offsetWidth;
+          const tooltipHeight = tooltip.offsetHeight;
+          const left = Math.min(
+            Math.max(xPosition - tooltipWidth / 2, 8),
+            container.clientWidth - tooltipWidth - 8
+          );
+          const preferAbove = yPosition - tooltipHeight - 14 >= 8;
+          const top = preferAbove
+            ? yPosition - tooltipHeight - 14
+            : Math.min(yPosition + 16, container.clientHeight - tooltipHeight - 8);
+          tooltip.style.left = `${left}px`;
+          tooltip.style.top = `${Math.max(8, top)}px`;
+        };
+        const hideTooltip = () => {
+          tooltip.hidden = true;
+        };
+
+        container.querySelectorAll(".milestone").forEach((group) => {
+          const hotspot = group.querySelector(".milestone-hotspot");
+          hotspot.addEventListener("mouseenter", () => showTooltip(group));
+          hotspot.addEventListener("mouseleave", hideTooltip);
+          hotspot.addEventListener("focus", () => showTooltip(group));
+          hotspot.addEventListener("blur", hideTooltip);
+        });
+      }
+
+      function renderSource(data) {
+        document.getElementById("source-note").innerHTML =
+          `As of ${data.as_of_date}. ${data.scope} ${data.measurement_note} Sources: ${sourceLinks(data.sources)}.`;
+      }
+
+      function init() {
+        if (!window.COASTER_RECORD_TIMELINE) {
+          document.getElementById("chart").innerHTML =
+            `<div class="load-error">The data file could not be loaded.</div>`;
+          return;
+        }
+
+        renderChart(window.COASTER_RECORD_TIMELINE);
+        renderSource(window.COASTER_RECORD_TIMELINE);
+        window.addEventListener("resize", () => renderChart(window.COASTER_RECORD_TIMELINE));
+      }
+
+      init();
+    </script>
+  </body>
+</html>
