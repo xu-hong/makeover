@@ -344,6 +344,11 @@
         font-weight: 780;
       }
 
+      .row-label.agi-label {
+        fill: var(--agi);
+        font-weight: 900;
+      }
+
       .forecast-band {
         stroke: #bac4c0;
         stroke-linecap: round;
@@ -398,6 +403,20 @@
 
       .agi-row-bg {
         fill: var(--soft-agi);
+      }
+
+      .agi-date-label {
+        fill: var(--agi);
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .agi-date-role {
+        fill: #6f4448;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
 
       .row-rule {
@@ -619,7 +638,7 @@
               </span>
               <div class="guide-percent-row">
                 <span>10%</span>
-                <span>50% median</span>
+                <span>median</span>
                 <span>90%</span>
               </div>
             </div>
@@ -690,7 +709,7 @@
         const margin = {
           top: 30,
           right: compact ? 24 : 34,
-          bottom: 32,
+          bottom: 58,
           left: compact ? 220 : 292
         };
         const rowHeight = compact ? 21 : 18.25;
@@ -717,7 +736,7 @@
 
         const todayX = x(2026.44);
         line(svg, todayX, margin.top - 12, todayX, height - margin.bottom + 4, "today-line");
-        text(svg, todayX + 6, height - 8, "today", "today-label", "start");
+        text(svg, todayX - 14, height - 36, "today", "today-label", "start");
 
         rows.forEach((row, index) => {
           const cy = y(index);
@@ -728,7 +747,7 @@
 
           line(svg, margin.left, cy + rowHeight / 2 - 1, width - margin.right, cy + rowHeight / 2 - 1, "row-rule");
           const label = compact ? shorten(row.label, 28) : shorten(row.label, 39);
-          text(svg, margin.left - 12, cy + 4, label, "row-label", "end");
+          text(svg, margin.left - 12, cy + 4, label, isAgi ? "row-label agi-label" : "row-label", "end");
 
           const bandEnd = Math.min(row.p90, maxYear);
           const bandClass = isAgi ? "forecast-band agi" : "forecast-band";
@@ -741,6 +760,12 @@
           if (isAgi) {
             circle(svg, x(row.p50), cy, 11, "agi-dot");
             text(svg, x(row.p50), cy + 0.5, "?", "agi-question", "middle");
+            text(svg, x(row.p10), cy + 22, "early", "agi-date-role", "middle");
+            text(svg, x(row.p10), cy + 34, formatYear(row.p10), "agi-date-label", "middle");
+            text(svg, x(row.p50), cy + 22, "mid", "agi-date-role", "middle");
+            text(svg, x(row.p50), cy + 34, formatYear(row.p50), "agi-date-label", "middle");
+            text(svg, x(row.p90), cy + 22, "late", "agi-date-role", "middle");
+            text(svg, x(row.p90), cy + 34, formatYear(row.p90), "agi-date-label", "middle");
           } else {
             const dotClass =
               row.timing === "early" ? "year-dot early" : "year-dot inside";
